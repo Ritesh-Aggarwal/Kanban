@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { getGreeting, today } from "./utils/date";
-import TaskCountCard from "./utils/TaskCountCard";
+import TaskCountCard from "./TaskCountCard";
 import ListTask from "./ListTask";
 import { Task } from "./types/task";
 import ViewChoice from "./common/ViewChoice";
+import { AuthConsumer as useAuth } from "./Auth/AuthContext";
 
 const getTaskCount = () => {
   return [
@@ -18,12 +19,27 @@ type TabList = {
   list: Task[];
 };
 const categories: TabList[] = [
-  { label: "To Do", list: [{ name: "one" }, { name: "two" }] },
+  {
+    label: "To Do",
+    list: [
+      { name: "one" },
+      { name: "two" },
+      { name: "one" },
+      { name: "two" },
+      { name: "one" },
+      { name: "two" },
+      { name: "one" },
+      { name: "two" },
+      { name: "one" },
+      { name: "two" },
+    ],
+  },
   { label: "On Progress", list: [{ name: "asdasdwe" }, { name: "asde" }] },
   { label: "Done", list: [{ name: "lorem" }, { name: "ipsum" }] },
 ];
 
 const Home = () => {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<TabList>({
     label: "To Do",
     list: [],
@@ -46,7 +62,7 @@ const Home = () => {
   return (
     <div className="p-4">
       <h2 className="text-lg">{today()}</h2>
-      <h1 className="text-2xl font-semibold">{getGreeting("jared")}</h1>
+      <h1 className="text-2xl font-semibold">{getGreeting(user.username)}</h1>
       <div className="grid grid-cols-3 gap-2 mt-4">
         {Taskcount.map((item, idx) => {
           return (
@@ -94,7 +110,7 @@ const Home = () => {
         {activeTab?.list.map((item, idx) => {
           return (
             <div key={idx}>
-              <ListTask grid={true} item={item} />
+              <ListTask grid={grid} item={item} />
             </div>
           );
         })}

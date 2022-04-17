@@ -1,5 +1,7 @@
 import React from "react";
-import { RequireAuth } from "./RequireAuth";
+import Logo from "./common/Logo";
+import Header from "./Header";
+import { RequireAuth } from "./Auth/RequireAuth";
 
 interface Props {
   children: React.ReactNode;
@@ -34,10 +36,14 @@ function AppContainer(props: Props) {
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       <div className="border-b flex">
-        <div className="border-r w-1/6 text-3xl">LOGO</div>
-        <div className="w-5/6">Search</div>
+        <div className="w-1/6 border-r">
+          <Logo />
+        </div>
+        <div className="w-5/6">
+          <Header />
+        </div>
       </div>
-      <div className="flex flex-row">
+      <div className="h-full flex flex-row">
         <Dashboard />
         <div className="w-5/6 h-full overflow-y-auto">
           <div className="mx-6 mb-6">

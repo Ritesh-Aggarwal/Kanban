@@ -21,6 +21,5 @@
     "jsx": "preserve"
   },
   "include": [
-    "src/*"
-  ]
+    "src/*", "src/Auth/RequireAuth.tsx", "src/Auth/Login.tsx", "src/Auth/SignUp.tsx", "src/Board/ListBoards.tsx" ]
 }
