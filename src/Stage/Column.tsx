@@ -13,6 +13,8 @@ export interface ColumnProps {
   addTaskCB: (stage_pk: number, newTask: Task) => void;
   removeStageCB: (stage_pk: number) => void;
   moveToLastCB: (task: Task) => void;
+  setTaskCB: (t: Task) => void;
+  removeTaskCB: (t: Task) => void;
 }
 
 export const Column = ({
@@ -20,8 +22,10 @@ export const Column = ({
   tasks,
   index,
   addTaskCB,
+  setTaskCB,
   removeStageCB,
   moveToLastCB,
+  removeTaskCB,
 }: ColumnProps) => {
   const [open, setOpen] = React.useState(false);
   const menu = [
@@ -101,6 +105,8 @@ export const Column = ({
           >
             {tasks.map((t, i) => (
               <TaskElem
+                removeTaskCB={removeTaskCB}
+                setTaskCB={setTaskCB}
                 moveToLastCB={moveToLastCB}
                 key={t.id}
                 task={t}

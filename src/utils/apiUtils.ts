@@ -145,3 +145,14 @@ export const createStage = (
 export const deleteStage = (stage_pk: number) => {
   return request("status/" + stage_pk + "/", "DELETE");
 };
+
+export const deleteTask = async (task: Task) => {
+  try {
+    request(
+      "boards/" + task.board_object.id + "/tasks/" + task.id + "/",
+      "DELETE"
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -7,8 +7,16 @@ interface TaskProps {
   task: Task;
   index: number;
   moveToLastCB: (task: Task) => void;
+  setTaskCB: (t: Task) => void;
+  removeTaskCB: (t: Task) => void;
 }
-export const TaskElem = ({ task, index, moveToLastCB }: TaskProps) => {
+export const TaskElem = ({
+  task,
+  index,
+  moveToLastCB,
+  setTaskCB,
+  removeTaskCB,
+}: TaskProps) => {
   return (
     <Draggable draggableId={String(task.id)} index={index}>
       {(provided, snapshot) => (
@@ -20,7 +28,12 @@ export const TaskElem = ({ task, index, moveToLastCB }: TaskProps) => {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <TaskCard moveToLastCB={moveToLastCB} task={task} />
+          <TaskCard
+            removeTaskCB={removeTaskCB}
+            setTaskCB={setTaskCB}
+            moveToLastCB={moveToLastCB}
+            task={task}
+          />
         </div>
       )}
     </Draggable>

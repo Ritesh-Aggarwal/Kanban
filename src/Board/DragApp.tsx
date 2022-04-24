@@ -71,6 +71,36 @@ export function DragApp(props: { stages: Stage[]; tasks: Task[] }) {
     );
   };
 
+  const removeTask = (task: Task) => {
+    setColumns((p) =>
+      p.map((col) => {
+        if (col.stage.id === task.status_object.id) {
+          return {
+            ...col,
+            tasks: col.tasks.filter((i) => i.id !== task.id),
+          };
+        } else return col;
+      })
+    );
+  };
+
+  const editTask = (task: Task) => {
+    setColumns((p) =>
+      p.map((col) => {
+        if (col.stage.id === task.status_object.id) {
+          return {
+            ...col,
+            tasks: col.tasks.map((i) => {
+              if (i.id === task.id) {
+                return task;
+              } else return i;
+            }),
+          };
+        } else return col;
+      })
+    );
+  };
+
   return (
     <DragDropContext
       onDragEnd={({ destination, source, draggableId, type }) => {
@@ -165,6 +195,8 @@ export function DragApp(props: { stages: Stage[]; tasks: Task[] }) {
               addTaskCB={addTaskAction}
               removeStageCB={removeStage}
               moveToLastCB={moveToLast}
+              setTaskCB={editTask}
+              removeTaskCB={removeTask}
             />
           );
         })}

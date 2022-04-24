@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Modal from "../common/Modal";
 import { Task } from "../types/task";
-import { updateTask } from "../utils/apiUtils";
-import CreateTask from "./CreateTask";
+import { deleteTask, updateTask } from "../utils/apiUtils";
+import UpdateTask from "./UpdateTask";
 
 const updateComplete = async (updatedTask: Task) => {
   try {
@@ -19,9 +19,13 @@ const updateComplete = async (updatedTask: Task) => {
 export const TaskCard = ({
   task,
   moveToLastCB,
+  setTaskCB,
+  removeTaskCB,
 }: {
   task: Task;
   moveToLastCB: (task: Task) => void;
+  setTaskCB: (t: Task) => void;
+  removeTaskCB: (t: Task) => void;
 }) => {
   const [open, setOpen] = useState(false);
   const [completed, setCompleted] = useState(task.completed);
@@ -64,14 +68,27 @@ export const TaskCard = ({
         {task.title.substring(0, 80)}
       </div>
       <Modal open={open} closeCB={() => setOpen(false)}>
-        <TaskModal task={task} />
+        <TaskModal
+          removeTaskCB={removeTaskCB}
+          task={task}
+          setTaskCB={setTaskCB}
+        />
       </Modal>
     </div>
   );
 };
 
-const TaskModal = ({ task }: { task: Task }) => {
+const TaskModal = ({
+  task,
+  setTaskCB,
+  removeTaskCB,
+}: {
+  task: Task;
+  setTaskCB: (task: Task) => void;
+  removeTaskCB: (task: Task) => void;
+}) => {
   const [open, setOpen] = useState(false);
+
   return (
     <div className="text-white">
       <div className="flex gap-1 justify-between mb-4">
@@ -81,15 +98,23 @@ const TaskModal = ({ task }: { task: Task }) => {
         </button>
       </div>
       <div className="border p-2 rounded-md mb-4">{task.description}</div>
-      <button className="p-2 rounded-md bg-slate-500 hover:bg-slate-600 flex items-center gap-2">
+      <button
+        onClick={() => {
+          deleteTask(task);
+          removeTaskCB(task);
+        }}
+        className="p-2 rounded-md bg-slate-500 hover:bg-slate-600 flex items-center gap-2"
+      >
         <Archive />
-        <div className="">Arcihve</div>
+        <div className="">Archive</div>
       </button>
       <Modal closeCB={() => setOpen(false)} open={open}>
-        <CreateTask
-          closeCB={() => {}}
-          addTaskCB={() => {}}
-          stage_pk={task.status_object.id}
+        <UpdateTask
+          task={task}
+          closeCB={(title: string, desc: string) => {
+            setTaskCB({ ...task, title: title, description: desc });
+            setOpen(false);
+          }}
         />
       </Modal>
     </div>
