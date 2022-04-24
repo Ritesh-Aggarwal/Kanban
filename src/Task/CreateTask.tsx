@@ -1,34 +1,28 @@
 import React, { useState } from "react";
 import LabelledInput from "../common/LabelledInput";
 import { LoadingDots } from "../common/Loader";
-import { Board, Stage, Task } from "../types/task";
+import { Board, Task } from "../types/task";
 import { Errors } from "../types/user";
 import { createTask } from "../utils/apiUtils";
-import { useParams } from "react-router-dom";
 
 type Props = {
   closeCB: () => void;
   addTaskCB: (stage_pk: number, newTask: Task) => void;
   stage_pk: number;
+  board_pk: number;
 };
 
-function CreateTask({ closeCB, addTaskCB, stage_pk }: Props) {
+function CreateTask({ closeCB, addTaskCB, stage_pk, board_pk }: Props) {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [errors, setErrors] = useState<Errors<Board>>();
   const [loading, setLoading] = useState(false);
-  const params = useParams();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const data = await createTask(
-        Number(params.pk),
-        stage_pk,
-        title,
-        description
-      );
+      const data = await createTask(board_pk, stage_pk, title, description);
       if (data.ok) {
         addTaskCB(stage_pk, data.result);
         setLoading(false);

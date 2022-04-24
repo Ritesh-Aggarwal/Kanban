@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../common/Modal";
 import { Task } from "../types/task";
 import { deleteTask, updateTask } from "../utils/apiUtils";
@@ -33,9 +33,14 @@ export const TaskCard = ({
     updateComplete({ ...task, completed: !completed });
     if (!completed) {
       moveToLastCB({ ...task, completed: !completed });
-    }
+    } else setTaskCB({ ...task, completed: !completed });
     setCompleted((p) => !p);
   };
+
+  useEffect(() => {
+    setCompleted(task.completed);
+  }, [task]);
+
   return (
     <div className="text-white bg-slate-700 p-2 rounded-md flex gap-2 items-center">
       <div className="h-5 w-5">

@@ -66,6 +66,7 @@ export const Column = ({
                   closeCB={() => setOpen(false)}
                   addTaskCB={addTaskCB}
                   stage_pk={column.id}
+                  board_pk={column.board}
                 />
               </Modal>
             </>

@@ -22,7 +22,7 @@ const fetchBoard = async (
   }
 };
 
-const fetchStages = async (
+export const fetchStages = async (
   board_pk: number,
   setStagesCB: (value: Stage[]) => void
 ) => {
@@ -35,7 +35,7 @@ const fetchStages = async (
     console.log(error);
   }
 };
-const fetchTasks = async (
+export const fetchTasks = async (
   board_pk: number,
   setTasksCB: (value: Task[]) => void
 ) => {
