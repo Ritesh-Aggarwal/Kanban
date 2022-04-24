@@ -31,7 +31,7 @@ function Dashboard() {
         setActive("Boards");
       },
     },
-    { page: "To-do", onClick: () => {} },
+    // { page: "To-do", onClick: () => {} },
   ];
   return (
     <div className="w-1/6 h-screen border-r border-slate-900 flex flex-col bg-slate-900">

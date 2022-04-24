@@ -1,8 +1,8 @@
 import { Task } from "../types/task";
 import { RegisterUser } from "../types/user";
 
-// const API_BASE_URL = "http://localhost:8000/api/";
-const API_BASE_URL = "https://kanban-api-django.herokuapp.com/api/";
+const API_BASE_URL = "http://localhost:8000/api/";
+// const API_BASE_URL = "https://kanban-api-django.herokuapp.com/api/";
 
 type ReqMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
