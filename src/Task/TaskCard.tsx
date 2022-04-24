@@ -29,6 +29,7 @@ export const TaskCard = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [completed, setCompleted] = useState(task.completed);
+  //false
   const toggleComplete = () => {
     updateComplete({ ...task, completed: !completed });
     if (!completed) {

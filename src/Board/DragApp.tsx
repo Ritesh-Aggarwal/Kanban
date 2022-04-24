@@ -163,7 +163,10 @@ export function DragApp(props: { stages: Stage[]; tasks: Task[] }) {
           //get the destination col task order
           const endTasks = Array.from(endingcol.tasks);
           //add the task to dest. col
-          endTasks.splice(destination.index, 0, draggedTask);
+          endTasks.splice(destination.index, 0, {
+            ...draggedTask,
+            status_object: endingcol.stage,
+          });
           updateTask(
             {
               ...draggedTask,
