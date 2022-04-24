@@ -19,7 +19,6 @@ function Login() {
       const data = await loginUser(username, password);
       if (data.ok) {
         localStorage.setItem("token", data.result.key);
-        setLoading((p) => false);
         login();
         window.location.replace("/");
       } else {
@@ -27,6 +26,8 @@ function Login() {
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading((p) => false);
     }
   };
 
