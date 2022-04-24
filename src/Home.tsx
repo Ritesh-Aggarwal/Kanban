@@ -33,7 +33,7 @@ const fetchTaskCount = async (
         { count: data.result.count, status: "Total" },
       ];
       setVal(val);
-    } else window.location.replace("/boards");
+    }
   } catch (error) {
     console.log(error);
   }
