@@ -1,6 +1,8 @@
+import { Task } from "../types/task";
 import { RegisterUser } from "../types/user";
 
-const API_BASE_URL = "http://localhost:8000/api/";
+// const API_BASE_URL = "http://localhost:8000/api/";
+const API_BASE_URL = "https://kanban-api-django.herokuapp.com/api/";
 
 type ReqMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
@@ -83,6 +85,10 @@ export const getBoards = () => {
   return request("boards/", "GET");
 };
 
+export const getBoard = (board_pk: number) => {
+  return request("boards/" + board_pk + "/", "GET");
+};
+
 export const createBoard = (title: string, description: string) => {
   return request("boards/", "POST", { title: title, description: description });
 };
@@ -95,6 +101,47 @@ export const getTasks = (board_pk: number) => {
   return request("boards/" + board_pk + "/tasks/", "GET");
 };
 
+export const createTask = (
+  board_pk: number,
+  stage_pk: number,
+  title: string,
+  description: string
+) => {
+  return request("boards/" + board_pk + "/tasks/", "POST", {
+    title: title,
+    description: description,
+    priority: 0,
+    status: stage_pk,
+  });
+};
+
 export const getStages = (board_pk: number) => {
   return request("boards/" + board_pk + "/status/", "GET");
+};
+
+export const updateTask = (
+  board_pk: number,
+  status_pk: number,
+  updatedTask: Task
+) => {
+  return request(
+    "boards/" + board_pk + "/tasks/" + updatedTask.id + "/",
+    "PUT",
+    { ...updatedTask, status: status_pk }
+  );
+};
+
+export const createStage = (
+  board_pk: number,
+  title: string,
+  description: string
+) => {
+  return request("boards/" + board_pk + "/status/", "POST", {
+    title: title,
+    description: description,
+  });
+};
+
+export const deleteStage = (stage_pk: number) => {
+  return request("status/" + stage_pk + "/", "DELETE");
 };

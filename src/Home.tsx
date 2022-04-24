@@ -19,23 +19,24 @@ type TabList = {
   list: Task[];
 };
 const categories: TabList[] = [
-  {
-    label: "To Do",
-    list: [
-      { name: "one" },
-      { name: "two" },
-      { name: "one" },
-      { name: "two" },
-      { name: "one" },
-      { name: "two" },
-      { name: "one" },
-      { name: "two" },
-      { name: "one" },
-      { name: "two" },
-    ],
-  },
-  { label: "On Progress", list: [{ name: "asdasdwe" }, { name: "asde" }] },
-  { label: "Done", list: [{ name: "lorem" }, { name: "ipsum" }] },
+  // {
+  //   label: "To Do",
+  //   list: [{ id: 1, name: "one" }],
+  // },
+  // {
+  //   label: "On Progress",
+  //   list: [
+  //     { id: 2, name: "asdasdwe" },
+  //     { id: 3, name: "asde" },
+  //   ],
+  // },
+  // {
+  //   label: "Done",
+  //   list: [
+  //     { id: 4, name: "lorem" },
+  //     { id: 5, name: "ipsum" },
+  //   ],
+  // },
 ];
 
 const Home = () => {

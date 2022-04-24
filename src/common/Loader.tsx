@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "./Modal";
 
 export function LoadingDots() {
-  const circleCommonClasses = "h-3 w-3 bg-current   rounded-full";
+  const circleCommonClasses = "h-3 w-3 bg-white  rounded-full";
   return (
     <div className="flex">
       <div className={`${circleCommonClasses} mr-1 animate-bounce`}></div>

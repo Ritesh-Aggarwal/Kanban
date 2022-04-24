@@ -1,5 +1,11 @@
 export type Task = {
-  name: string;
+  id: number;
+  title: string;
+  description: string;
+  priority: number;
+  completed: boolean;
+  status_object: Stage;
+  board_object: Board;
 };
 
 export type Board = {
@@ -10,6 +16,7 @@ export type Board = {
 
 export type Stage = {
   id: number;
+  board: number;
   title: string;
   description: string;
 };

@@ -13,6 +13,7 @@ const fetchBoards = async (
   setBoardsCB: (value: Board[]) => void,
   setLoadingCB: (value: boolean) => void
 ) => {
+  setLoadingCB(true);
   try {
     const data = await getBoards();
     if (data.ok) {
@@ -27,7 +28,7 @@ const fetchBoards = async (
 function ListBoards() {
   const [open, setOpen] = useState(false);
   const [boards, setBoards] = useState<Board[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchBoards(setBoards, setLoading);
@@ -62,7 +63,7 @@ function ListBoards() {
           onClick={() => {
             setOpen(true);
           }}
-          className="border border-black rounded-md px-2 py-1 flex justify-evenly items-center"
+          className="border rounded-md px-2 py-1 flex justify-evenly items-center"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +120,7 @@ function CardPulse(props: { count: number }) {
       {Array.from(Array(props.count).keys()).map((i) => {
         return (
           <div className="h-40 max-w-xs" key={i}>
-            <div className="min-h-full rounded-md bg-slate-200 p-4 ">
+            <div className="min-h-full rounded-md bg-slate-900 p-4 ">
               <div className="animate-pulse flex flex-col gap-2">
                 <div className="text-xl font-medium">
                   <div className=" rounded bg-slate-600 h-2 w-24"></div>
@@ -173,7 +174,7 @@ const BoardCard = ({
     },
   ];
   return (
-    <div className="min-h-full rounded-md bg-slate-200 p-4 flex flex-col gap-2">
+    <div className="min-h-full rounded-md bg-slate-900 p-4 flex flex-col gap-2">
       <div className="flex flex-row justify-between">
         <div className="text-xl font-medium">{item.title}</div>
         <div className="">

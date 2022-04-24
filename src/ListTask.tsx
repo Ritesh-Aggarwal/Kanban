@@ -15,9 +15,9 @@ function ListTask({ item, grid }: { item: Task; grid: boolean }) {
       {grid ? <div>task grid component</div> : <div>task list component</div>}
       <Modal open={open} closeCB={() => setOpen(false)}>
         <div>
-          <div>{item.name}</div>
+          <div>{item.title}</div>
           <button
-            id={item.name}
+            id={String(item.id)}
             className="border  bg-red-200"
             onClick={() => {
               setOpen(false);

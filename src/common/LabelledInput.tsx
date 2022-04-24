@@ -17,7 +17,7 @@ function LabelledInput({ errors, field }: Props) {
           id={field.title}
           type={field.kind}
           placeholder={field.placeholder}
-          className="outline text-black outline-slate-200 focus:ring-2 rounded-md px-2 flex-1 text-lg"
+          className="text-white bg-slate-700 rounded-md px-2 flex-1 text-lg"
           value={field.value}
           onChange={(e) => {
             field.onChange(e);
@@ -27,7 +27,7 @@ function LabelledInput({ errors, field }: Props) {
         <textarea
           id={field.title}
           placeholder={field.placeholder}
-          className="outline text-black outline-slate-200 focus:ring-2 rounded-md px-2 flex-1 text-lg"
+          className="text-white bg-slate-700 rounded-md px-2 flex-1 text-lg"
           value={field.value}
           onChange={(e) => {
             field.onChange(e);

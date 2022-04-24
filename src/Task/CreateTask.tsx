@@ -1,36 +1,36 @@
 import React, { useState } from "react";
 import LabelledInput from "../common/LabelledInput";
 import { LoadingDots } from "../common/Loader";
-import { Board } from "../types/task";
+import { Board, Stage, Task } from "../types/task";
 import { Errors } from "../types/user";
-import { createBoard } from "../utils/apiUtils";
+import { createTask } from "../utils/apiUtils";
+import { useParams } from "react-router-dom";
 
 type Props = {
   closeCB: () => void;
-  addBoardCB: (newBoard: {
-    id: number;
-    title: string;
-    description: string;
-  }) => void;
+  addTaskCB: (stage_pk: number, newTask: Task) => void;
+  stage_pk: number;
 };
 
-function CreateBoard({ closeCB, addBoardCB }: Props) {
+function CreateTask({ closeCB, addTaskCB, stage_pk }: Props) {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [errors, setErrors] = useState<Errors<Board>>();
   const [loading, setLoading] = useState(false);
+  const params = useParams();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const data = await createBoard(title, description);
+      const data = await createTask(
+        Number(params.pk),
+        stage_pk,
+        title,
+        description
+      );
       if (data.ok) {
-        addBoardCB({
-          id: data.result.id,
-          title: title,
-          description: description,
-        });
+        addTaskCB(stage_pk, data.result);
         setLoading(false);
         closeCB();
         setDesc("");
@@ -70,8 +70,8 @@ function CreateBoard({ closeCB, addBoardCB }: Props) {
   return (
     <>
       {!loading ? (
-        <div className="bg-slate-800 text-white">
-          <div className="text-xl font-medium border-b">Create new board</div>
+        <div className="text-white">
+          <div className="text-xl font-medium border-b">Add new task</div>
           <form onSubmit={handleSubmit} className="mt-4 flex-col flex gap-2">
             {CreateFields.map((field, idx) => {
               const e = errors && (errors as any)[field.name];
@@ -98,4 +98,4 @@ function CreateBoard({ closeCB, addBoardCB }: Props) {
   );
 }
 
-export default CreateBoard;
+export default CreateTask;

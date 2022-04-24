@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import LabelledInput from "../common/LabelledInput";
 import { LoadingDots } from "../common/Loader";
-import { Board } from "../types/task";
+import { Board, Stage } from "../types/task";
 import { Errors } from "../types/user";
-import { createBoard } from "../utils/apiUtils";
+import { createStage } from "../utils/apiUtils";
 
 type Props = {
   closeCB: () => void;
-  addBoardCB: (newBoard: {
-    id: number;
-    title: string;
-    description: string;
-  }) => void;
+  addStageCB: (newStage: Stage) => void;
+  board_pk: number;
 };
 
-function CreateBoard({ closeCB, addBoardCB }: Props) {
+function CreateStage({ closeCB, addStageCB, board_pk }: Props) {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [errors, setErrors] = useState<Errors<Board>>();
@@ -24,13 +21,9 @@ function CreateBoard({ closeCB, addBoardCB }: Props) {
     e.preventDefault();
     setLoading(true);
     try {
-      const data = await createBoard(title, description);
+      const data = await createStage(board_pk, title, description);
       if (data.ok) {
-        addBoardCB({
-          id: data.result.id,
-          title: title,
-          description: description,
-        });
+        addStageCB(data.result);
         setLoading(false);
         closeCB();
         setDesc("");
@@ -70,8 +63,8 @@ function CreateBoard({ closeCB, addBoardCB }: Props) {
   return (
     <>
       {!loading ? (
-        <div className="bg-slate-800 text-white">
-          <div className="text-xl font-medium border-b">Create new board</div>
+        <div className="text-white">
+          <div className="text-xl font-medium border-b">Create new stage</div>
           <form onSubmit={handleSubmit} className="mt-4 flex-col flex gap-2">
             {CreateFields.map((field, idx) => {
               const e = errors && (errors as any)[field.name];
@@ -98,4 +91,4 @@ function CreateBoard({ closeCB, addBoardCB }: Props) {
   );
 }
 
-export default CreateBoard;
+export default CreateStage;
