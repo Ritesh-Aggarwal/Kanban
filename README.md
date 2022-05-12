@@ -1,3 +1,14 @@
+## Kanban app
+It's a board-based workflow management tool that allows us to organize our tasks in a Kanban-style workflow.
+
+backend api built using Django
+Link to the BE repo : https://github.com/Ritesh-Aggarwal/kanban-app-api
+
+```
+username : supeR
+password : super
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
